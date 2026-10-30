@@ -1,0 +1,44 @@
+{
+  "title": "EyeTrackingAnalysis: analysis code for visual-search and multiple-object-tracking eye-tracking experiments",
+  "description": "<p>Reproducible analysis code for the behavioural eye-tracking study reported in the associated manuscript. It contains the feature extraction for the visual-search task, the search-performance analyses, the multiple-object-tracking (MOT) analyses and the combined expertise index, together with the full compute-environment definition (conda + R/pymer4) and a single entry point (<code>run</code>) that executes all notebooks and writes the result tables and figures.</p><p>Input data are deposited separately (see related identifiers) and are not part of this record.</p>",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "version": "1.0.0",
+  "language": "eng",
+  "keywords": [
+    "eye tracking",
+    "visual search",
+    "multiple object tracking",
+    "expertise",
+    "reproducibility",
+    "linear mixed models"
+  ],
+  "creators": [
+    {
+      "name": "<Surname, Given name>",
+      "affiliation": "<Department, Institution>",
+      "orcid": "<0000-0000-0000-0000>"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "<Surname, Given name>",
+      "affiliation": "<Department, Institution>",
+      "type": "ContactPerson"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "<DOI of the data record, e.g. 10.5281/zenodo.XXXXXXX>",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "<DOI of the manuscript, once available>",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-article"
+    }
+  ],
+  "notes": "Environment: Python 3.10 + R 4.4 (conda-forge), see environment/. Tested on linux-64 and osx-64. Use `bash run` to regenerate every figure and table."
+}

@@ -1,8 +1,14 @@
 # EyeTrackingAnalysis
 
 Analysis code for the behavioural eye-tracking study (a visual-search task and a
-multiple-object-tracking (MOT) task), packaged as a
-[Code Ocean](https://codeocean.com) Compute Capsule.
+multiple-object-tracking (MOT) task).
+
+The code is shared as a plain git repository (GitHub, archived on Zenodo with a
+DOI) and is also packaged so that it can be run as a
+[Code Ocean](https://codeocean.com) Compute Capsule. **No Code Ocean account is
+needed to reproduce the results** — see
+[`REVIEWER_GUIDE.md`](REVIEWER_GUIDE.md) (reviewers) and
+[`SHARING.md`](SHARING.md) (archiving, DOIs, manuscript statements).
 
 ## Layout
 
@@ -24,20 +30,31 @@ environment/
   environment.yml               conda part (conda-forge, Python 3.10, R 4.4)
   requirements.txt              pip part (pymer4==0.9.2, ...)
 run                             reproducible-run entry point (executes all notebooks -> /results)
+.github/workflows/
+  docker-publish.yml            optional: build/push the image on GitHub's runners
+REVIEWER_GUIDE.md               how to install, run and verify the analysis (no Code Ocean)
+SHARING.md                      archiving (GitHub/Zenodo DOIs), code/data availability statements
 CAPSULE_SETUP.md                step-by-step capsule/environment instructions
+LICENSE                         MIT
+CITATION.cff, .zenodo.json      citation / deposit metadata (fill in the placeholders)
 ```
 
 ## Quick start
 
-**Easiest – via GitHub.** Push this repository, then in Code Ocean use
-*New Capsule → Clone from Git* with the repo URL. Code Ocean maps `code/` to
-`/code`, builds `environment/Dockerfile`, and keeps the capsule linked to the
-repo (two-way *Sync with GitHub*). Add the data via the capsule's **Data** panel,
-then hit *Reproducible Run*. Full walkthrough: [`CAPSULE_SETUP.md`](CAPSULE_SETUP.md) §2.
+**For peer review / citation.** GitHub repository + archived release with a
+Zenodo DOI; everything needed to rebuild the environment and regenerate all
+figures and tables is in this repository. [`REVIEWER_GUIDE.md`](REVIEWER_GUIDE.md)
+has the install-and-run recipe, expected runtimes and the numbers to compare
+against.
 
-**Inside Code Ocean without git** – see [`CAPSULE_SETUP.md`](CAPSULE_SETUP.md) §3.
-The capsule uses the `environment/` files and runs `bash run`, which executes the
-three notebooks in order and writes the executed notebooks + result tables to
+**Inside Code Ocean.** Either push this repository and use
+*New Capsule → Clone from Git* with the repo URL (*Easiest – via GitHub*), or
+recreate the capsule by hand. Code Ocean maps `code/` to `/code`, builds
+`environment/Dockerfile`, and keeps the capsule linked to the repo (two-way
+*Sync with GitHub*). Add the data via the capsule's **Data** panel, then hit
+*Reproducible Run*. Full walkthrough: [`CAPSULE_SETUP.md`](CAPSULE_SETUP.md) §2
+(Clone from Git) and §3 (without git). Either way `bash run` executes the three
+notebooks in order and writes the executed notebooks + result tables to
 `/results`.
 
 **Locally**
@@ -58,11 +75,26 @@ docker run --rm --platform linux/amd64 \
   -w /code eyetracking-env bash run
 ```
 
+## Sharing, archiving and citation
+
+* [`SHARING.md`](SHARING.md) — the submission plan: push to GitHub, deposit the
+  data (Zenodo/figshare), mint a DOI for release `v1.0.0` via the
+  Zenodo–GitHub integration, grant reviewer access, and drop-in
+  *Code availability* / *Data availability* statement texts (Nature Portfolio
+  names Zenodo as an accepted DOI-minting repository, so a Code Ocean capsule is
+  optional).
+* [`REVIEWER_GUIDE.md`](REVIEWER_GUIDE.md) — the reviewer-facing recipe: what to
+  install, how to run, expected runtime (~25 min, CPU only), expected outputs
+  and a table of values to check the reproduction against.
+* Placeholders in `CITATION.cff`, `.zenodo.json` and `LICENSE` must be filled in
+  before creating the release (`grep -n '<' CITATION.cff .zenodo.json`).
+
 ## Data (not in this repository)
 
 Raw and preprocessed data are **not** versioned here (see `.gitignore`; the
-pickle alone is ~100 MB). Put these five files into `data/` (or upload them to
-the capsule's `/data`):
+pickle alone is ~100 MB). They are deposited separately — see
+[`SHARING.md`](SHARING.md) §2 for the DOI and the deposit layout. Put these five
+files into `data/` (or upload them to the capsule's `/data`):
 
 | File | Used by |
 |------|---------|
