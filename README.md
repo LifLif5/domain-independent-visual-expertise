@@ -72,11 +72,11 @@ The input data are in `data/`:
 
 | File | Description |
 |------|-------------|
-| `simple_df_search.csv` | visual-search trials: gaze samples and derived features |
-| `search_performance_long.csv` | accuracy and reaction time per participant × condition |
-| `simple_df_mot.csv` | MOT gaze samples with per-trial metadata |
-| `mot_long_dataframe.csv` | MOT accuracy / tracking performance per participant × condition |
-| `movement_phase_full.pkl.gz` | raw MOT gaze trajectories (gzip-compressed pandas pickle; 932 trials) |
+| `simple_df_search.csv` | visual-search eye-movement events (fixations and saccades) |
+| `search_performance_long.csv` | visual-search reaction time per trial |
+| `simple_df_mot.csv` | MOT eye-movement events (fixations and saccades) |
+| `mot_long_dataframe.csv` | MOT tracking accuracy per trial |
+| `movement_phase_full.pkl.gz` | raw MOT gaze trajectories (x/y positions over time) |
 
 ## Running the analysis
 
