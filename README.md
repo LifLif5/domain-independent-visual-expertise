@@ -1,12 +1,12 @@
 # Domain-Independent Visual Expertise
 
-Analysis code for the behavioural eye-tracking study (a visual-search task and a
+Analysis code and data for the behavioural eye-tracking study
+"Domain-Independent Visual Expertise" (a visual-search task and a
 multiple-object-tracking, MOT, task).
 
-This repository contains everything needed to reproduce the figures and tables
-of the manuscript: the analysis notebooks, the helper modules, the pinned
-compute environment, and a single `run` script that executes all notebooks and
-writes the results.
+This repository contains the analysis notebooks, helper modules, input data and
+a pinned compute environment, together with a single `run` script that executes
+the notebooks and writes all result tables and figures.
 
 ## Contents
 
@@ -16,11 +16,11 @@ code/
   search_analysis/             visual-search feature extraction + performance analyses
   mot_analysis/                multiple-object-tracking analyses + expertise index
   statistic_checks/            GLM / mixed-effects models, plotting, z-scores
+data/                          input data (see "Data" below)
 environment/
   environment.yml              conda environment (Python 3.10 + R 4.4)
   requirements.txt             pip packages (pymer4 etc.)
   Dockerfile                   optional container image
-data/                          input data (see "Data" below)
 run                            entry point: executes all notebooks -> results/
 ```
 
@@ -68,21 +68,17 @@ docker build -t eyetracking-env environment/
 
 ## Data
 
-The five input files are stored in `data/`. The large MOT trajectory file is
-kept gzip-compressed (`movement_phase_full.pkl.gz`, ~10 MB) so it fits in git.
+The input data are in `data/`:
 
-| File | Used by |
-|------|---------|
-| `simple_df_search.csv` | `search_analysis/search_features.ipynb` |
-| `search_performance_long.csv` | `search_features.ipynb`, `performance_analysis_search.ipynb` |
-| `mot_long_dataframe.csv` | `mot_analysis/article_mot_analysis.ipynb` |
-| `simple_df_mot.csv` | `article_mot_analysis.ipynb` |
-| `movement_phase_full.pkl.gz` | `article_mot_analysis.ipynb` |
+| File | Description |
+|------|-------------|
+| `simple_df_search.csv` | visual-search trials: gaze samples and derived features |
+| `search_performance_long.csv` | accuracy and reaction time per participant × condition |
+| `simple_df_mot.csv` | MOT gaze samples with per-trial metadata |
+| `mot_long_dataframe.csv` | MOT accuracy / tracking performance per participant × condition |
+| `movement_phase_full.pkl.gz` | raw MOT gaze trajectories (gzip-compressed pandas pickle; 932 trials) |
 
-The notebooks locate `code/` and `data/` from this folder layout, so they run
-from any working directory.
-
-## Run
+## Running the analysis
 
 ```bash
 bash run
@@ -107,7 +103,7 @@ third reads the table produced by the first).
 
 ## Expected results
 
-All outputs are deterministic given the deposited data and the pinned
+All outputs are deterministic given the included data and the pinned
 environment. A few numbers printed by the notebooks to spot-check:
 
 | Printed by | Value |
@@ -124,24 +120,6 @@ environment. A few numbers printed by the notebooks to spot-check:
 - `FileNotFoundError: .../data/...` → the `data/` folder is not a sibling of `code/`.
 - Run the notebooks in the order given above.
 
-## Sharing and citation
+## Citation
 
-To share the code with reviewers and archive it:
-
-1. Push this repository to GitHub (private during review).
-2. Deposit the data separately (e.g. Zenodo or figshare) and note its DOI.
-3. Create a GitHub release `v1.0.0` with the Zenodo integration switched on to
-   mint a citable DOI for the code.
-
-Example statements for the manuscript:
-
-> **Code availability.** The analysis code is available at
-> https://doi.org/<code DOI> (archived release of
-> https://github.com/<user>/domain-independent-visual-expertise).
->
-> **Data availability.** The processed data have been deposited in
-> <repository> at https://doi.org/<data DOI>; raw recordings are available from
-> the corresponding author on reasonable request.
-
-When the repository is made public, add an open-source `LICENSE` file (e.g.
-MIT) if the journal requires one.
+If you use this code or data, please cite the associated manuscript.
