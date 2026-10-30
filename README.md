@@ -87,8 +87,8 @@ bash run
 This executes the three notebooks in order and writes the executed notebooks
 (with all figures) and result tables to `results/`:
 
-1. `code/search_analysis/search_features.ipynb` — search features + `combined_zscore_search.csv`
-2. `code/search_analysis/performance_analysis_search.ipynb` — accuracy / reaction-time models
+1. `code/search_analysis/search_features.ipynb` — fixation-duration and initiation-time features + `combined_zscore_search.csv`
+2. `code/search_analysis/performance_analysis_search.ipynb` — reaction-time (RT) analysis
 3. `code/mot_analysis/article_mot_analysis.ipynb` — MOT analyses + expertise index
 
 With Docker:
