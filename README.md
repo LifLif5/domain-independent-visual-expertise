@@ -101,25 +101,6 @@ docker run --rm -v "$PWD/code":/code -v "$PWD/data":/data \
 The notebooks can also be run interactively in Jupyter, in the order above (the
 third reads the table produced by the first).
 
-## Expected results
-
-All outputs are deterministic given the included data and the pinned
-environment. A few numbers printed by the notebooks to spot-check:
-
-| Printed by | Value |
-|---|---|
-| `article_mot_analysis`, logistic model | `group_coef -0.4533`, `p = 0.0333` |
-| `search_features`, fixation-duration LMM | `group_coef 34.9455`, `p = 0.00867` |
-| `search_features`, distractor measure | `group_coef 15.8379`, `p = 0.0229` |
-
-## Troubleshooting
-
-- `AttributeError: ... 'pymer4.models' has no attribute 'Lmer'` → install `pymer4==0.9.2`.
-- `RRuntimeError: could not find function "lmer"` → install `environment.yml` too (it provides R and the R packages).
-- Do not force `MPLBACKEND=Agg` when running `run`; it silently drops the figures.
-- `FileNotFoundError: .../data/...` → the `data/` folder is not a sibling of `code/`.
-- Run the notebooks in the order given above.
-
 ## Citation
 
 If you use this code or data, please cite the associated manuscript.
