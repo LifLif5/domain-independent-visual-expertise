@@ -4,7 +4,7 @@
 # which is what Code Ocean uses.  Every dependency here can be installed through
 # the Code Ocean Environment Editor ("Conda" package manager, channel:
 # conda-forge); the pip-only packages are in requirements.txt.
-# See ../CAPSULE_SETUP.md for the step-by-step recipe.
+# See ../README.md for setup and troubleshooting.
 name: eyetracking
 
 channels:
