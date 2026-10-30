@@ -68,8 +68,8 @@ docker build -t eyetracking-env environment/
 
 ## Data
 
-The five input files are **not** stored in this repository (the trajectory
-pickle alone is ~100 MB). Place them in `data/`, next to `code/`:
+The five input files are stored in `data/`. The large MOT trajectory file is
+kept gzip-compressed (`movement_phase_full.pkl.gz`, ~10 MB) so it fits in git.
 
 | File | Used by |
 |------|---------|
@@ -77,7 +77,7 @@ pickle alone is ~100 MB). Place them in `data/`, next to `code/`:
 | `search_performance_long.csv` | `search_features.ipynb`, `performance_analysis_search.ipynb` |
 | `mot_long_dataframe.csv` | `mot_analysis/article_mot_analysis.ipynb` |
 | `simple_df_mot.csv` | `article_mot_analysis.ipynb` |
-| `movement_phase_full.pkl` | `article_mot_analysis.ipynb` |
+| `movement_phase_full.pkl.gz` | `article_mot_analysis.ipynb` |
 
 The notebooks locate `code/` and `data/` from this folder layout, so they run
 from any working directory.

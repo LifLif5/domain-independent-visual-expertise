@@ -1,4 +1,5 @@
-/data/
+# Data: commit the small files; ignore the 100 MB uncompressed pickle.
+/data/movement_phase_full.pkl
 /results/
 /dist/
 __pycache__/
