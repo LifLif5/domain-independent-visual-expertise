@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# ---------------------------------------------------------------------------
+# Code Ocean Reproducible Run entry point (this file lives at /code/run).
+#
+# It executes every analysis notebook end-to-end, in dependency order, and
+# writes the executed copies (with all figures/tables inline) to /results:
+#
+#   1. code/search_analysis/search_features.ipynb
+#        -> search features per trial/participant (+ combined_zscore_search.csv)
+#   2. code/search_analysis/performance_analysis_search.ipynb
+#        -> accuracy / reaction time analyses for the visual-search task
+#   3. code/mot_analysis/article_mot_analysis.ipynb
+#        -> multiple-object-tracking analyses (uses the pymer4/R LMM stack)
+#
+# Notebooks are executed with the working directory set to the folder that
+# contains them; the notebooks themselves locate /code and /data from the
+# folder layout (see the first cell of each notebook), so any cwd would work.
+# ---------------------------------------------------------------------------
+set -euo pipefail
+
+CAPSULE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# /results only exists inside Code Ocean; fall back to ./results elsewhere.
+RESULTS_DIR="${RESULTS_DIR:-/results}"
+if [ ! -d "$RESULTS_DIR" ]; then
+    RESULTS_DIR="${CAPSULE_ROOT}/results"
+fi
+mkdir -p "$RESULTS_DIR"
+
+# Head-less rendering that still shows the figures in the executed notebook:
+# the matplotlib inline backend needs no display and captures every figure as
+# cell output.  (Do NOT force MPLBACKEND=Agg - the plots would be dropped.)
+export MPLBACKEND="module://matplotlib_inline.backend_inline"
+
+NOTEBOOKS=(
+    "search_analysis/search_features.ipynb"
+    "search_analysis/performance_analysis_search.ipynb"
+    "mot_analysis/article_mot_analysis.ipynb"
+)
+
+status=0
+for nb in "${NOTEBOOKS[@]}"; do
+    nb_path="${CAPSULE_ROOT}/code/${nb}"
+    nb_dir="$(dirname "${nb_path}")"
+    nb_file="$(basename "${nb_path}")"
+    out_name="$(basename "${nb%.ipynb}")_executed.ipynb"
+
+    echo "==> executing ${nb}"
+    if ! ( cd "${nb_dir}" && jupyter nbconvert \
+              --to notebook \
+              --execute \
+              --ExecutePreprocessor.timeout=-1 \
+              --ExecutePreprocessor.kernel_name=python3 \
+              --output "${out_name}" \
+              --output-dir "${RESULTS_DIR}" \
+              "${nb_file}" ); then
+        echo "!!! ${nb} FAILED" >&2
+        status=1
+    fi
+done
+
+# The combined z-score table produced by search_features.ipynb is written to
+# /results inside Code Ocean (where that folder exists) and next to the
+# notebook elsewhere.  Normalise it: make sure it is in RESULTS_DIR, and keep a
+# copy next to the notebooks so that article_mot_analysis.ipynb finds it when
+# the code folder is writable (local runs; /code is read-only on Code Ocean).
+SEARCH_DIR="${CAPSULE_ROOT}/code/search_analysis"
+ZSCORE_NAME="combined_zscore_search.csv"
+for src in "${RESULTS_DIR}/${ZSCORE_NAME}" "${SEARCH_DIR}/${ZSCORE_NAME}"; do
+    [ -f "$src" ] || continue
+    for dst in "${RESULTS_DIR}/${ZSCORE_NAME}" "${SEARCH_DIR}/${ZSCORE_NAME}"; do
+        [ "$src" = "$dst" ] && continue
+        cp -f "$src" "$dst" 2>/dev/null || true
+    done
+    break
+done
+
+exit "${status}"
