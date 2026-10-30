@@ -1,4 +1,4 @@
-# Conda environment specification for the EyeTrackingAnalysis capsule.
+# Conda environment specification for the Domain-Independent Visual Expertise capsule.
 #
 # Validated on macOS (osx-64) and written so that it also resolves on linux-64,
 # which is what Code Ocean uses.  Every dependency here can be installed through

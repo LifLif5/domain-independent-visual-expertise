@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 #
 # ---------------------------------------------------------------------------
-# EyeTrackingAnalysis – capsule environment
+# Domain-Independent Visual Expertise – capsule environment
 # ---------------------------------------------------------------------------
 # Everything the three notebooks in /code need:
 #   * Python 3.10 scientific stack (pandas / numpy / scipy / statsmodels /

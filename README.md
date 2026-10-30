@@ -1,4 +1,4 @@
-# EyeTrackingAnalysis
+# Domain-Independent Visual Expertise
 
 Analysis code for the behavioural eye-tracking study (a visual-search task and a
 multiple-object-tracking, MOT, task).
@@ -137,7 +137,7 @@ Example statements for the manuscript:
 
 > **Code availability.** The analysis code is available at
 > https://doi.org/<code DOI> (archived release of
-> https://github.com/<user>/EyeTrackingAnalysis).
+> https://github.com/<user>/domain-independent-visual-expertise).
 >
 > **Data availability.** The processed data have been deposited in
 > <repository> at https://doi.org/<data DOI>; raw recordings are available from
